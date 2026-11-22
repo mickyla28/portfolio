@@ -1,5 +1,6 @@
 import { profile, services, steps } from "@/lib/content";
 import { GlowCard, Reveal } from "./motion";
+import { BookCallTile } from "./BookCall";
 import { ArrowUpRight, IconTile, SectionHeader } from "./ui";
 
 export function Process() {
@@ -78,7 +79,7 @@ export function Contact() {
           <h2 className="font-display text-[clamp(34px,4.2vw,54px)] font-semibold leading-[1.02] tracking-[-0.025em] text-ecru">
             Have a funnel or automation you want built?
           </h2>
-          <p className="text-lg text-soft">Email me or message me on WhatsApp. I reply within 24 hours.</p>
+          <p className="text-lg text-soft">Book a call, email me, or message me on WhatsApp. I reply within 24 hours.</p>
           <div className="flex flex-wrap gap-2.5 pt-1.5">
             {[
               { href: profile.linkedin, label: "LinkedIn" },
@@ -92,6 +93,7 @@ export function Contact() {
           </div>
         </Reveal>
         <Reveal delay={0.1} className="flex min-w-0 flex-[1_1_420px] flex-col gap-4">
+          <BookCallTile />
           <ContactTile
             href={`mailto:${profile.email}`}
             label="Email"

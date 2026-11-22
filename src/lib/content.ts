@@ -8,6 +8,7 @@ export const profile = {
   email: "shanmickyla.work@gmail.com",
   whatsappDisplay: "+63 960 305 9148",
   whatsappLink: "https://wa.me/639603059148",
+  booking: "https://api.astroaiautomations.com/widget/booking/t8VxJ7idMy8dxlfMX9ID",
   resume: "https://drive.google.com/file/d/17VNXpT1m6Z8546lxvlunaHSqQ52RGLJ-/view?usp=sharing",
   linkedin: "https://www.linkedin.com/in/shan-mickyla-r-25a572399",
   onlinejobs: "https://www.onlinejobs.ph/jobseekers/info/3881812",
