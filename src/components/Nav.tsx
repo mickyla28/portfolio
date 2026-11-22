@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { profile } from "@/lib/content";
 
@@ -30,7 +31,7 @@ export function Nav() {
         }`}
       >
         <a href="#top" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand font-display text-[15px] font-semibold text-ecru">SM</span>
+          <Image src="/images/logo-mark.png" alt="" width={40} height={40} priority className="h-10 w-10" />
           <span className="flex flex-col leading-tight">
             <span className="font-display text-base font-semibold text-ecru">{profile.name}</span>
             <span className="text-[13px] text-muted">{profile.title}</span>
