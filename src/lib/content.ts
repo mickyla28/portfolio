@@ -17,7 +17,7 @@ export const profile = {
 export const videos = {
   glowFull: { id: "6wo6TgjzpNE", title: "GLOW: full walkthrough" },
   glowHighlight: { id: "yQ74RoMl8JE", title: "GLOW: highlight" },
-  clearPaw: { id: "cWSSmguSJy8", title: "Clear Paw Clinic: walkthrough" },
+  clearPaw: { id: "cwspYfAk66E", title: "Clear Paw Clinic: walkthrough" },
 };
 
 export type VideoKey = keyof typeof videos;
