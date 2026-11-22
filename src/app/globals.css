@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Clash Display and Satoshi are free fonts from Fontshare (ITF Free Font License, see public/fonts). */
+@font-face { font-family: "Clash Display"; src: url("/fonts/ClashDisplay-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Clash Display"; src: url("/fonts/ClashDisplay-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/Satoshi-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/Satoshi-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/Satoshi-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+@theme {
+  --color-ink: #070709;
+  --color-tamarind: #200e0e;
+  --color-panel: #0f0a0a;
+  --color-panel-2: #0b0707;
+  --color-line: #2a1614;
+  --color-line-soft: #1e1212;
+  --color-line-strong: #4a2420;
+  --color-oxblood: #4a0000;
+  --color-sangria: #c10801;
+  --color-scotch: #f42c1d;
+  --color-orange: #f16001;
+  --color-ember: #e0715f;
+  --color-ecru: #f3eee2;
+  --color-body: #c9c1b4;
+  --color-soft: #b3aa9d;
+  --color-muted: #a89f93;
+  --color-dim: #6e625a;
+
+  --font-display: "Clash Display", system-ui, sans-serif;
+  --font-sans: "Satoshi", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@utility bg-brand {
+  background-image: linear-gradient(135deg, #c10801, #f16001);
+}
+@utility text-brand {
+  background-image: linear-gradient(90deg, #f42c1d, #f16001);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-sangria);
+  color: var(--color-ecru);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+}
+
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.15); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.1); }
+  50% { transform: translate(-50px, -30px) scale(0.95); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(241, 96, 1, 0.6); }
+  70% { box-shadow: 0 0 0 10px rgba(241, 96, 1, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(241, 96, 1, 0); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-drift-a { animation: drift-a 18s ease-in-out infinite; }
+.animate-drift-b { animation: drift-b 22s ease-in-out infinite; }
+.animate-marquee { animation: marquee 34s linear infinite; }
+.animate-pulse-ring { animation: pulse-ring 2s infinite; }
+.animate-float-y { animation: float-y 6s ease-in-out infinite; }
+
+.marquee:hover .animate-marquee { animation-play-state: paused; }
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(243, 238, 226, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 238, 226, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 55% 35%, #000 15%, transparent 70%);
+}
+
+/* Shared card: lift + orange glow that follows the cursor */
+.card {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.35s, box-shadow 0.35s;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--cx, 50%) var(--cy, 50%), rgba(241, 96, 1, 0.12), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #7a3a1e;
+  box-shadow: 0 28px 60px -24px rgba(241, 96, 1, 0.42);
+}
+.card:hover::before { opacity: 1; }
+.card .zoom { transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.card:hover .zoom { transform: scale(1.05); }
+
+.btn-glow { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.btn-glow:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -8px rgba(241, 96, 1, 0.6); }
+
+.no-scrollbar { scrollbar-width: thin; scrollbar-color: #4a2420 transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-drift-a, .animate-drift-b, .animate-marquee, .animate-pulse-ring, .animate-float-y { animation: none !important; }
+  .card, .card .zoom, .btn-glow { transition: none; }
+  .card:hover { transform: none; }
+}
