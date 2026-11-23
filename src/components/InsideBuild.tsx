@@ -157,7 +157,14 @@ export function InsideBuild() {
             </div>
 
             {/* Bottom controls: always in the same spot, same width, whatever the screenshot or title. */}
-            <div className="flex h-24 flex-none items-center justify-center px-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex h-24 flex-none flex-col items-center justify-center gap-2 px-4 pointer-coarse:h-32" onClick={(e) => e.stopPropagation()}>
+              <span className="hidden items-center gap-2 text-[13px] text-muted pointer-coarse:flex">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.5-3.5M11 8v6M8 11h6" />
+                </svg>
+                Pinch to zoom in on the workflow
+              </span>
               <div className="grid w-[260px] grid-cols-[48px_1fr_48px] items-center gap-3 rounded-full border border-line bg-panel/90 p-1.5">
                 <button type="button" onClick={() => setZoom(Math.max(0, zoom - 1))} disabled={zoom === 0} aria-label="Previous workflow" className="flex h-12 w-12 items-center justify-center rounded-full bg-tamarind text-ecru transition hover:bg-oxblood disabled:opacity-30 disabled:hover:bg-tamarind">
                   <Arrow dir="left" />
