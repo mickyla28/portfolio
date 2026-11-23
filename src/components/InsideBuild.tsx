@@ -124,37 +124,51 @@ export function InsideBuild() {
             role="dialog"
             aria-modal="true"
             aria-label={current.title}
-            className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-4 bg-ink/95 p-4 backdrop-blur-sm sm:p-8"
+            className="fixed inset-0 z-[60] flex flex-col bg-ink/95 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setZoom(null)}
           >
-            <button ref={closeRef} type="button" onClick={() => setZoom(null)} aria-label="Close" className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full border border-line-strong bg-tamarind text-ecru transition hover:bg-oxblood">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                <path d="M18 6 6 18M6 6l12 12" />
-              </svg>
-            </button>
-            <motion.div
-              key={current.n}
-              className={`max-h-[78vh] w-full max-w-6xl overflow-auto rounded-xl ${current.dark ? "bg-[#1e1e1e]" : "bg-[#f7f7f8]"}`}
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image src={current.img} alt={current.title} width={current.w} height={current.h} sizes="100vw" className="h-auto w-full" />
-            </motion.div>
-            <div className="flex items-center gap-4" onClick={(e) => e.stopPropagation()}>
-              <button type="button" onClick={() => setZoom(Math.max(0, zoom - 1))} disabled={zoom === 0} aria-label="Previous step" className="flex h-11 w-11 items-center justify-center rounded-full border border-line-strong text-ecru disabled:opacity-30">
-                <Arrow dir="left" />
-              </button>
-              <span className="text-center font-display text-lg font-bold text-ecru">
-                <span className="text-scotch">{current.n}</span> · {current.title}
+            {/* Top bar: step title on the left, close on the right. Fixed height so nothing below shifts. */}
+            <div className="flex h-20 flex-none items-center justify-between gap-4 px-4 sm:px-8" onClick={(e) => e.stopPropagation()}>
+              <span className="min-w-0 truncate font-display text-lg font-semibold text-ecru">
+                <span className="text-orange">{current.n}</span> · {current.title}
               </span>
-              <button type="button" onClick={() => setZoom(Math.min(buildSlides.length - 1, zoom + 1))} disabled={zoom === buildSlides.length - 1} aria-label="Next step" className="flex h-11 w-11 items-center justify-center rounded-full border border-line-strong text-ecru disabled:opacity-30">
-                <Arrow dir="right" />
+              <button ref={closeRef} type="button" onClick={() => setZoom(null)} aria-label="Close" className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-line-strong bg-tamarind text-ecru transition hover:border-orange">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
               </button>
+            </div>
+
+            {/* Screenshot area: takes all the remaining space, image centered inside it. */}
+            <div className="flex min-h-0 flex-1 items-center justify-center px-4 sm:px-8">
+              <motion.div
+                key={current.n}
+                className={`max-h-full w-full max-w-6xl overflow-auto rounded-xl ${current.dark ? "bg-[#1e1e1e]" : "bg-[#f7f7f8]"}`}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.25 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image src={current.img} alt={current.title} width={current.w} height={current.h} sizes="100vw" className="h-auto w-full" />
+              </motion.div>
+            </div>
+
+            {/* Bottom controls: always in the same spot, same width, whatever the screenshot or title. */}
+            <div className="flex h-24 flex-none items-center justify-center px-4" onClick={(e) => e.stopPropagation()}>
+              <div className="grid w-[260px] grid-cols-[48px_1fr_48px] items-center gap-3 rounded-full border border-line bg-panel/90 p-1.5">
+                <button type="button" onClick={() => setZoom(Math.max(0, zoom - 1))} disabled={zoom === 0} aria-label="Previous workflow" className="flex h-12 w-12 items-center justify-center rounded-full bg-tamarind text-ecru transition hover:bg-oxblood disabled:opacity-30 disabled:hover:bg-tamarind">
+                  <Arrow dir="left" />
+                </button>
+                <span className="text-center font-mono text-sm text-body" aria-live="polite">
+                  {zoom + 1} / {buildSlides.length}
+                </span>
+                <button type="button" onClick={() => setZoom(Math.min(buildSlides.length - 1, zoom + 1))} disabled={zoom === buildSlides.length - 1} aria-label="Next workflow" className="bg-brand flex h-12 w-12 items-center justify-center rounded-full text-ecru transition disabled:opacity-30">
+                  <Arrow dir="right" />
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
