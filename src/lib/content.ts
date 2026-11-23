@@ -15,7 +15,7 @@ export const profile = {
 };
 
 export const videos = {
-  glowFull: { id: "6wo6TgjzpNE", title: "GLOW: full walkthrough" },
+  glowFull: { id: "8_cidgkNXrU", title: "GLOW: full walkthrough" },
   glowHighlight: { id: "yQ74RoMl8JE", title: "GLOW: highlight" },
   clearPaw: { id: "qW3YO9vT3sg", title: "Clear Paw Clinic: walkthrough" },
 };
