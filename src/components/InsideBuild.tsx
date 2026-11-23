@@ -17,7 +17,12 @@ function Arrow({ dir }: { dir: "left" | "right" }) {
 
 export function InsideBuild() {
   const track = useRef<HTMLDivElement>(null);
-  const [zoom, setZoom] = useState<number | null>(null);
+  const [zoom, setZoomIndex] = useState<number | null>(null);
+  const [full, setFull] = useState(false);
+  const setZoom = useCallback((next: number | null | ((z: number | null) => number | null)) => {
+    setFull(false);
+    setZoomIndex(next);
+  }, []);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -56,7 +61,7 @@ export function InsideBuild() {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [zoom]);
+  }, [zoom, setZoom]);
 
   const current = zoom === null ? null : buildSlides[zoom];
 
@@ -135,35 +140,41 @@ export function InsideBuild() {
               <span className="min-w-0 truncate font-display text-lg font-semibold text-ecru">
                 <span className="text-orange">{current.n}</span> · {current.title}
               </span>
+              <div className="flex flex-none items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setFull((f) => !f)}
+                aria-pressed={full}
+                aria-label={full ? "Fit to screen" : "Zoom in"}
+                className="hidden h-12 w-12 items-center justify-center rounded-full border border-line-strong bg-tamarind text-ecru transition hover:border-orange sm:flex"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d={full ? "m20 20-3.5-3.5M8 11h6" : "m20 20-3.5-3.5M11 8v6M8 11h6"} />
+                </svg>
+              </button>
               <button ref={closeRef} type="button" onClick={() => setZoom(null)} aria-label="Close" className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-line-strong bg-tamarind text-ecru transition hover:border-orange">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12" />
                 </svg>
               </button>
+              </div>
             </div>
 
-            {/* Screenshot area: takes all the remaining space, image centered inside it. */}
-            <div className="flex min-h-0 flex-1 items-center justify-center px-4 sm:px-8">
-              <motion.div
-                key={current.n}
-                className={`max-h-full w-full max-w-6xl overflow-auto rounded-xl ${current.dark ? "bg-[#1e1e1e]" : "bg-[#f7f7f8]"}`}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.25 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Image src={current.img} alt={current.title} width={current.w} height={current.h} sizes="100vw" className="h-auto w-full" />
-              </motion.div>
+            {/* Screenshot area: fits the screen by default; click to view full size and drag around. */}
+            <div className="flex min-h-0 flex-1 items-center justify-center px-4 sm:px-8" onClick={(e) => e.stopPropagation()}>
+              <ZoomableShot key={current.n} slide={current} full={full} onToggle={() => setFull((f) => !f)} />
             </div>
 
             {/* Bottom controls: always in the same spot, same width, whatever the screenshot or title. */}
-            <div className="flex h-24 flex-none flex-col items-center justify-center gap-2 px-4 pointer-coarse:h-32" onClick={(e) => e.stopPropagation()}>
-              <span className="hidden items-center gap-2 text-[13px] text-muted pointer-coarse:flex">
+            <div className="flex h-32 flex-none flex-col items-center justify-center gap-2 px-4" onClick={(e) => e.stopPropagation()}>
+              <span className="flex items-center gap-2 text-[13px] text-muted">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="11" cy="11" r="7" />
                   <path d="m20 20-3.5-3.5M11 8v6M8 11h6" />
                 </svg>
-                Pinch to zoom in on the workflow
+                <span className="pointer-coarse:hidden">{full ? "Drag to look around. Click to fit the screen again." : "Click the screenshot to zoom in"}</span>
+                <span className="hidden pointer-coarse:inline">Pinch to zoom in on the workflow</span>
               </span>
               <div className="grid w-[260px] grid-cols-[48px_1fr_48px] items-center gap-3 rounded-full border border-line bg-panel/90 p-1.5">
                 <button type="button" onClick={() => setZoom(Math.max(0, zoom - 1))} disabled={zoom === 0} aria-label="Previous workflow" className="flex h-12 w-12 items-center justify-center rounded-full bg-tamarind text-ecru transition hover:bg-oxblood disabled:opacity-30 disabled:hover:bg-tamarind">
@@ -183,5 +194,88 @@ export function InsideBuild() {
       document.body,
       )}
     </section>
+  );
+}
+
+function ZoomableShot({ slide, full, onToggle }: { slide: (typeof buildSlides)[number]; full: boolean; onToggle: () => void }) {
+  const box = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ x: number; y: number; left: number; top: number; moved: boolean } | null>(null);
+  const clickPoint = useRef<{ rx: number; ry: number }>({ rx: 0.5, ry: 0.5 });
+  const [fitWidth, setFitWidth] = useState(0);
+  // Wide workflows need more zoom to read the small nodes; boxier ones need less.
+  const zoomFactor = slide.w / slide.h > 2 ? 2.4 : 1.6;
+  const bg = slide.dark ? "bg-[#1e1e1e]" : "bg-[#f7f7f8]";
+
+  // When zooming in, scroll so the spot you clicked stays in view.
+  useEffect(() => {
+    const el = box.current;
+    if (!full || !el) return;
+    const { rx, ry } = clickPoint.current;
+    el.scrollLeft = rx * el.scrollWidth - el.clientWidth / 2;
+    el.scrollTop = ry * el.scrollHeight - el.clientHeight / 2;
+  }, [full]);
+
+  if (!full) {
+    return (
+      <motion.button
+        type="button"
+        aria-label={`Zoom in on ${slide.title}`}
+        className="flex h-full w-full cursor-zoom-in items-center justify-center"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.25 }}
+        onClick={(e) => {
+          const img = e.currentTarget.querySelector("img");
+          if (img) {
+            const r = img.getBoundingClientRect();
+            clickPoint.current = { rx: (e.clientX - r.left) / r.width, ry: (e.clientY - r.top) / r.height };
+            setFitWidth(r.width);
+          }
+          onToggle();
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- full quality original, no recompression */}
+        <img src={slide.img} alt={slide.title} width={slide.w} height={slide.h} className={`h-auto max-h-full w-auto max-w-full rounded-xl object-contain ${bg}`} />
+      </motion.button>
+    );
+  }
+
+  return (
+    <div
+      ref={box}
+      className={`no-scrollbar h-full w-full max-w-[1400px] cursor-grab overflow-auto rounded-xl active:cursor-grabbing ${bg}`}
+      onPointerDown={(e) => {
+        const el = box.current;
+        if (!el || e.pointerType === "touch") return;
+        drag.current = { x: e.clientX, y: e.clientY, left: el.scrollLeft, top: el.scrollTop, moved: false };
+        el.setPointerCapture(e.pointerId);
+      }}
+      onPointerMove={(e) => {
+        const el = box.current;
+        const d = drag.current;
+        if (!el || !d) return;
+        const dx = e.clientX - d.x;
+        const dy = e.clientY - d.y;
+        if (Math.abs(dx) + Math.abs(dy) > 4) d.moved = true;
+        el.scrollLeft = d.left - dx;
+        el.scrollTop = d.top - dy;
+      }}
+      onPointerUp={() => {
+        const d = drag.current;
+        drag.current = null;
+        if (d && !d.moved) onToggle();
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element -- full quality original, no recompression */}
+      <img
+        src={slide.img}
+        alt={slide.title}
+        width={slide.w}
+        height={slide.h}
+        draggable={false}
+        className="block h-auto max-w-none select-none"
+        style={{ width: fitWidth ? `${Math.round(fitWidth * zoomFactor)}px` : "200%" }}
+      />
+    </div>
   );
 }

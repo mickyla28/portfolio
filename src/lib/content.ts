@@ -50,14 +50,14 @@ export const glow = {
 export type Slide = { n: string; img: string; w: number; h: number; title: string; chain: string; dark?: boolean };
 
 export const buildSlides: Slide[] = [
-  { n: "01", img: "/images/workflows/glow-01.webp", w: 2400, h: 579, title: "New lead intake + AI qualify", chain: "Form or chat > service check > AI scores hot / warm / cold > matching reply" },
-  { n: "02", img: "/images/workflows/glow-02.webp", w: 2400, h: 502, title: "Follow-up until they reply", chain: "Nurture tag > wait > email > wait > email > no reply: move to Cold" },
+  { n: "01", img: "/images/workflows/glow-01.webp", w: 3070, h: 740, title: "New lead intake + AI qualify", chain: "Form or chat > service check > AI scores hot / warm / cold > matching reply" },
+  { n: "02", img: "/images/workflows/glow-02.webp", w: 3110, h: 650, title: "Follow-up until they reply", chain: "Nurture tag > wait > email > wait > email > no reply: move to Cold" },
   { n: "03", img: "/images/workflows/glow-02b.webp", w: 1395, h: 792, title: "Lead replied: stop follow-up", chain: "Lead replies > exit follow-up > move to Engaged > alert staff > send booking link" },
-  { n: "04", img: "/images/workflows/glow-03.webp", w: 2400, h: 387, title: "Appointment booked + reminders", chain: "Booked > stop follow-ups > confirmation > reminders before the visit" },
-  { n: "05", img: "/images/workflows/glow-03b.webp", w: 2400, h: 378, title: "No-show recovery", chain: "Marked no-show > tag > re-engage > rebook" },
-  { n: "06", img: "/images/workflows/glow-03c.webp", w: 2400, h: 363, title: "Showed: review request", chain: "Marked showed > stop reminders > thank you > review request after the visit" },
+  { n: "04", img: "/images/workflows/glow-03.webp", w: 3100, h: 500, title: "Appointment booked + reminders", chain: "Booked > stop follow-ups > confirmation > reminders before the visit" },
+  { n: "05", img: "/images/workflows/glow-03b.webp", w: 3110, h: 490, title: "No-show recovery", chain: "Marked no-show > tag > re-engage > rebook" },
+  { n: "06", img: "/images/workflows/glow-03c.webp", w: 3110, h: 470, title: "Showed: review request", chain: "Marked showed > stop reminders > thank you > review request after the visit" },
   { n: "07", img: "/images/workflows/glow-04a.webp", w: 1172, h: 917, title: "Booked: send to n8n", chain: "Consultation booked > webhook sends lead + appointment to n8n" },
-  { n: "08", img: "/images/workflows/glow-04.webp", w: 2400, h: 777, dark: true, title: "n8n: AI brief back to GHL", chain: "Webhook > clean fields > Gemini writes brief + score > Sheets > Gmail > GHL API" },
+  { n: "08", img: "/images/workflows/glow-04.webp", w: 3180, h: 1030, dark: true, title: "n8n: AI brief back to GHL", chain: "Webhook > clean fields > Gemini writes brief + score > Sheets > Gmail > GHL API" },
   { n: "09", img: "/images/workflows/glow-05.webp", w: 2320, h: 1080, title: "Mia handover: alert staff", chain: "Handoff tag > medical concern? > priority or general alert > clear tags" },
 ];
 
