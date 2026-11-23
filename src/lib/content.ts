@@ -1,6 +1,8 @@
 // All the text, links and project data for the site lives here.
 // Edit this file to update your portfolio without touching the layout.
 
+export const siteUrl = "https://shanmickyla.com";
+
 export const profile = {
   name: "Shan Mickyla",
   title: "GoHighLevel Specialist",
@@ -114,4 +116,32 @@ export const services: { icon: IconName; title: string; desc: string }[] = [
   { icon: "flow", title: "CRM & pipeline setup", desc: "Clean pipelines, stages and tags that give you full visibility over every lead." },
   { icon: "calendar", title: "Calendar & booking automation", desc: "Scheduling, confirmations, reminders and no-show follow-ups." },
   { icon: "message", title: "Email & SMS copywriting", desc: "Follow-up messages written to get replies, not ignored." },
+];
+
+// Shown on the page as an accordion AND used in the FAQPage schema, so both always match.
+export const faqs: { q: string; a: string }[] = [
+  {
+    q: "What does a GoHighLevel specialist do?",
+    a: "A GoHighLevel specialist builds and runs the funnels, CRM, pipelines and automations inside GoHighLevel (HighLevel). I'm Shan Mickyla, and I set up landing pages and websites, pipelines and calendars, then build workflows that follow up with every lead by SMS and email automatically. Where it helps, I add AI like lead scoring and chat assistants, so businesses reply faster without extra staff.",
+  },
+  {
+    q: "Can you build AI automations in GoHighLevel?",
+    a: "Yes. I use GoHighLevel workflows and Conversation AI for instant lead replies, AI lead scoring, and AI assistants that answer questions and book appointments. When a system needs more than native GHL, I connect n8n, webhooks and AI models like OpenAI, Claude or Gemini. My GLOW demo shows a full example: AI scores each lead, replies within seconds and books consultations automatically.",
+  },
+  {
+    q: "Do you build websites outside GoHighLevel?",
+    a: "Yes. Besides GoHighLevel funnels and websites, I build and migrate sites in Lovable and WordPress. Most of my website work is for real estate teams and mortgage advisors, built to capture leads and connect them to automated follow-up.",
+  },
+  {
+    q: "What kinds of businesses do you work with?",
+    a: "I work with service businesses that get leads online and need fast, consistent follow-up: real estate teams, mortgage advisors, clinics, med spas, agencies and other local service businesses.",
+  },
+  {
+    q: "Where are you based, and do you work remotely?",
+    a: "I'm based in the Philippines and work fully remotely with clients abroad, including the United States.",
+  },
+  {
+    q: "How do we get started?",
+    a: "Book a call through the calendar on this site, email shanmickyla.work@gmail.com, or message me on WhatsApp at +63 960 305 9148. I reply within 24 hours. On the first call we go over your goals and current setup, then I map the journey from first click to booked call before building anything.",
+  },
 ];

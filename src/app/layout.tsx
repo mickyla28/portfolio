@@ -1,21 +1,46 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource/jetbrains-mono/500.css";
 import "./globals.css";
+import { siteUrl } from "@/lib/content";
 
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
+const title = "Shan Mickyla | GoHighLevel Specialist & AI Automation";
+const description =
+  "Shan Mickyla is a GoHighLevel specialist who builds funnels, websites, CRM pipelines and AI automations that reply to every lead in seconds, qualify them and book them.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Shan Mickyla | GoHighLevel Specialist",
-  description:
-    "GoHighLevel funnels, pipelines and AI-powered workflows that reply to every lead in seconds, qualify them and book them.",
+  title,
+  description,
+  applicationName: "Shan Mickyla",
+  authors: [{ name: "Shan Mickyla", url: siteUrl }],
+  creator: "Shan Mickyla",
+  keywords: [
+    "GoHighLevel specialist",
+    "HighLevel expert",
+    "GHL automation",
+    "GoHighLevel funnels",
+    "AI lead follow-up",
+    "Conversation AI",
+    "n8n automation",
+    "CRM pipeline setup",
+    "appointment booking automation",
+    "freelance GoHighLevel VA Philippines",
+  ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Shan Mickyla | GoHighLevel Specialist",
+    type: "website",
+    url: "/",
+    siteName: "Shan Mickyla",
+    locale: "en_US",
+    title,
     description: "GoHighLevel funnels and the AI systems that run them.",
-    images: ["/images/shan-portrait.jpg"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: "GoHighLevel funnels and the AI systems that run them.",
+  },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
 };
 
 export const viewport: Viewport = {

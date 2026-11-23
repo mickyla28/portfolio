@@ -31,7 +31,7 @@ export function Nav() {
         }`}
       >
         <a href="#top" className="flex items-center gap-3">
-          <Image src="/images/logo-mark.png" alt="" width={40} height={40} priority className="h-10 w-10" />
+          <Image src="/images/logo-mark.png" alt="Shan Mickyla logo" width={40} height={40} priority className="h-10 w-10" />
           <span className="flex flex-col leading-tight">
             <span className="font-display text-base font-semibold text-ecru">{profile.name}</span>
             <span className="text-[13px] text-muted">{profile.title}</span>

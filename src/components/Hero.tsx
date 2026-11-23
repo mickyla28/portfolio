@@ -64,7 +64,7 @@ export function Hero() {
             <div className="rounded-[28px] bg-gradient-to-br from-orange via-oxblood to-tamarind p-px shadow-[0_40px_120px_-30px_rgba(241,96,1,0.5)]">
               <Image
                 src="/images/shan-portrait.jpg"
-                alt={profile.name}
+                alt={`${profile.name}, GoHighLevel and AI automation specialist`}
                 width={832}
                 height={1040}
                 priority

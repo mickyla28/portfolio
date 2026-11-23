@@ -1,0 +1,40 @@
+# Shan Mickyla | GoHighLevel Specialist
+
+> Shan Mickyla is a freelance GoHighLevel (HighLevel) specialist based in the Philippines who works remotely with clients worldwide, including the United States. She builds GoHighLevel funnels, websites, CRM pipelines and AI-powered automations that reply to every lead in seconds, qualify them and book them, so service businesses don't lose leads between the form and the follow-up.
+
+Website: https://shanmickyla.com
+Email: shanmickyla.work@gmail.com
+WhatsApp: +63 960 305 9148
+LinkedIn: https://www.linkedin.com/in/shan-mickyla-r-25a572399
+OnlineJobs.ph: https://www.onlinejobs.ph/jobseekers/info/3881812
+Book a call: https://shanmickyla.com/#contact
+
+## Services
+
+- GHL + n8n AI workflows: native HighLevel automations first, with n8n and AI (OpenAI, Claude, Gemini) for scoring, routing or tools GHL can't reach.
+- Funnels and landing pages: conversion-focused funnels and websites in GoHighLevel, Lovable or WordPress.
+- Lead generation systems: lead capture connected to automated follow-up.
+- CRM and pipeline setup: pipelines, stages and tags with full visibility over every lead.
+- Calendar and booking automation: scheduling, confirmations, reminders and no-show follow-ups.
+- Email and SMS copywriting: follow-up messages written to get replies.
+
+## Featured system: GLOW (AI lead system for a med spa, demo build)
+
+When a lead fills out the website form or messages the chat, AI scores them as hot, warm or cold and sends a matching reply within seconds. Or Mia, the AI assistant, answers questions and books them directly. Every lead lands in the GoHighLevel pipeline, where follow-ups, reminders and staff alerts move them from new lead to booked consultation automatically. Built with GoHighLevel workflows, Conversation AI, n8n, Gemini and Google Sheets.
+
+## How a project runs
+
+1. Map the journey: first click, booked call, follow-up.
+2. Design the funnel: pages, offer and brand in GoHighLevel.
+3. Build the backend: tags, pipeline, calendar, SMS and email, plus n8n and AI where needed.
+4. Test and hand off: a live lead is run through the system, then the client gets an SOP and walkthrough.
+
+## Who she works with
+
+Service businesses that get leads online and need fast, consistent follow-up: real estate teams, mortgage advisors, clinics, med spas, agencies and local service businesses.
+
+## Tools
+
+GoHighLevel, n8n, OpenAI, Claude, Gemini, Make, Webhooks, Notion, Lovable, WordPress.
+
+AI crawlers and assistants are allowed to read, index and cite this site.

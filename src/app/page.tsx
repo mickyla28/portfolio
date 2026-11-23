@@ -8,19 +8,26 @@ import { Statement } from "@/components/Statement";
 import { ToolMarquee } from "@/components/ToolMarquee";
 import { VideoProvider } from "@/components/video";
 import { WorkGrid } from "@/components/WorkGrid";
+import { Faq } from "@/components/Faq";
 import { profile } from "@/lib/content";
+import { buildSchema } from "@/lib/schema";
 
 const footerLinks = [
   { href: "#systems", label: "Systems" },
   { href: "#work", label: "Work" },
   { href: "#process", label: "Process" },
   { href: "#services", label: "Services" },
+  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];
 
 export default function Home() {
   return (
     <VideoProvider>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildSchema()).replace(/</g, "\\u003c") }}
+      />
       <ScrollProgress />
       <Spotlight />
       <a href="#systems" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-sangria focus:px-4 focus:py-2 focus:text-ecru">
@@ -37,6 +44,7 @@ export default function Home() {
           <WorkGrid />
           <Process />
           <Services />
+          <Faq />
           <Contact />
         </main>
         <footer className="relative z-[1] border-t border-line-soft">
